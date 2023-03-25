@@ -12,6 +12,7 @@ class MenuAdmin(admin.ModelAdmin):
 @admin.register(MenuItem)
 class MenuItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+    list_filter = ('menu__name',)
     list_display = ('name', 'menu', 'parent', 'slug')
 
 
