@@ -1,0 +1,12 @@
+<ul>
+    {% for item in tree.nested_items %}
+        <li>
+            <a href="?{{ item.slug }}={{ item.id }}">{{ item.name }}</a>
+        </li>
+
+        {% if item.nested_items %}
+            {% include 'treelikemenu/nested-menu.html' with tree=item %}
+        {% endif %}
+
+    {% endfor %}
+</ul>
