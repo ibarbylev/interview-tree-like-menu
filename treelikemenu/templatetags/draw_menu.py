@@ -11,6 +11,7 @@ def draw_menu(context, menu_title):
 
     current_menu_slug = context['request'].GET.get('menu-slug')
 
+    # check if the URL with menu item selection refers to "our" (current) menu
     current_item_id = None
     if current_menu_slug == context['menus_dict'][menu_title]:
         current_item_id_str = context['request'].GET.get('item-id')
@@ -62,7 +63,3 @@ def walk(node, key, current_item_id):
             res = walk(d, key, current_item_id)
             if res:
                 return res
-            # if d.get('id') == current_item_id:
-            #     break
-
-
