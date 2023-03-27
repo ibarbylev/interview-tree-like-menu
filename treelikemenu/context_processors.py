@@ -5,10 +5,10 @@ meet the requirements of the terms of reference.
 from treelikemenu.models import Menu
 
 
-def menu_dict(request):
+def menus_dict(request):
     menus = Menu.objects.all().values('name', 'slug')
     d = {}
     for menu in menus:
         d[menu['name']] = menu['slug']
 
-    return d
+    return {'menus_dict': d}

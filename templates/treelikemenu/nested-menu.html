@@ -1,7 +1,7 @@
 <ul>
     {% for item in tree.nested_items %}
         <li>
-            <a href="?menu-name={{ menu_title }}&item-id={{ item.id }}">{{ item.name }}</a>
+            <a href="?menu-slug={{ menu_slug }}&item-id={{ item.id }}">{{ item.name }}</a>
         </li>
 
         {% if item.nested_items %}

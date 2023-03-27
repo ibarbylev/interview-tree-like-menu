@@ -9,8 +9,12 @@ register = template.Library()
 @register.inclusion_tag('treelikemenu/nested-menu.html', takes_context=True)
 def draw_menu(context, menu_title):
 
-    current_item_id_str = context['request'].GET.get('item-id')
-    current_item_id = int(current_item_id_str) if current_item_id_str else None
+    current_menu_slug = context['request'].GET.get('menu-slug')
+
+    current_item_id = None
+    if current_menu_slug == context['menus_dict'][menu_title]:
+        current_item_id_str = context['request'].GET.get('item-id')
+        current_item_id = int(current_item_id_str) if current_item_id_str else None
 
     items = MenuItem.objects.filter(menu__name=menu_title).values()
 
@@ -38,9 +42,12 @@ def draw_menu(context, menu_title):
             new_item = items.filter(id=item['id']).values('id', 'name', 'slug')[0]
             nested_items.append(new_item)
             parent_item['nested_items'] = nested_items
+            if current_item_id:
+                if item['id'] == current_item_id + 2:
+                    break
 
     context['tree'] = tree
-    # context['menu_title'] = menu_title
+    context['menu_slug'] = context['menus_dict'][menu_title]
     return context
 
 # {'id': 1, 'menu_id': 1, 'parent_id': None, 'name': 'first', 'slug': 'first'}
